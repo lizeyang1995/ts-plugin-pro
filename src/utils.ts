@@ -4,7 +4,7 @@ function setEl(el: string | undefined, type: TYPE): HTMLElement {
     if (!el) {
         throw new Error('"el" must be exist')
     }
-    const isMark: boolean = /\^(\.|\#)/.test(el)
+    const isMark: boolean = /^(\.|\#)/.test(el)
     let _el: HTMLElement | null
 
     if (!isMark) {
@@ -17,7 +17,7 @@ function setEl(el: string | undefined, type: TYPE): HTMLElement {
         throw new Error('this element with the class or Id name is need')
     }
 
-    _el.className += ' ' + type
+    _el.className = `tab ${type}`
     return _el
 }
 

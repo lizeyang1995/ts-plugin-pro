@@ -18,6 +18,10 @@ class Tab {
         this._type = setType(type)
         this._el = setEl(el, this._type as TYPE)
     }
+
+    create() {
+        console.log(this._type, this._el);
+    }
 }
 
 export default Tab
