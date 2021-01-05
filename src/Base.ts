@@ -4,9 +4,22 @@ abstract class Base {
     private _curIndex: number = 0
     private _el: HTMLElement
     private _tabItems: HTMLCollection
+    private _methodArr: any[] = []
+    private _pageElement: HTMLElement | HTMLCollection
+
     constructor(el: HTMLElement, type: TYPE) {
         this._el = el
         this._tabItems = this._el.getElementsByClassName('tab-item')
+        switch (type) {
+            case TYPE.FADE:
+                this._pageElement = this._el.getElementsByClassName('page-item')
+                break
+            case TYPE.SLIDE:
+                this._pageElement = this._el.getElementsByClassName('inner')[0] as HTMLElement
+                break
+            default:
+                break
+        }
         this.init()
     }
 
@@ -27,7 +40,19 @@ abstract class Base {
             //找到当前点击的那一项tar，在_tabItems里的下标
             this._curIndex = [].indexOf.call(this._tabItems, tar)
             this._tabItems[this._curIndex].className += ' active'
+            //当_curIndex变更的时候执行
+            this.notify()
         }
+    }
+
+    private notify() {
+        this._methodArr.forEach((item: any) => {
+            item(this._pageElement, this._curIndex)
+        })
+    }
+
+    protected getMethod(method: any) {
+        this._methodArr.push(method)
     }
 }
 
