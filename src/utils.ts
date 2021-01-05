@@ -1,3 +1,5 @@
+import { TYPE } from "./Tab"
+
 function setEl(el: string | undefined, type: TYPE): HTMLElement {
     if (!el) {
         throw new Error('"el" must be exist')
@@ -19,6 +21,21 @@ function setEl(el: string | undefined, type: TYPE): HTMLElement {
     return _el
 }
 
+function setType(type: string | TYPE | undefined): TYPE {
+    if (!type) {
+        return TYPE.FADE
+    }
+
+    for (let k in TYPE) {
+        if (TYPE[k] === type) {
+            return type as TYPE
+        }
+    }
+
+    return TYPE.FADE
+}
+
 export {
-    setEl
+    setEl,
+    setType
 }
